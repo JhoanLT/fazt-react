@@ -36,12 +36,12 @@ class Navigation extends Component{
                         <Tab
                             label={
                                 <Badge className={classes.padding} color="secondary" badgeContent={this.state.todos.length}>
-                                    TAREAS
+                                    TASK
                                 </Badge>
                             }
                         />
-                        <Tab label="PENDIENTES" />
-                        <Tab label="FINALIZADAS" />
+                        <Tab label="PROCESS" />
+                        <Tab label="FINISHED" />
                     </Tabs>
                 </AppBar>
             </div>

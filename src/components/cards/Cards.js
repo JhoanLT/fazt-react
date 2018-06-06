@@ -6,7 +6,8 @@ import {CardActions,
         CardContent,
         Typography,
         Button,
-        Card} from '@material-ui/core';
+        Card,
+        Chip} from '@material-ui/core';
 
 const styles = {
     root: {
@@ -24,6 +25,10 @@ const styles = {
     pos: {
         marginBottom: 12,
     },
+    chip: {
+        background: "orange",
+        color: "white "
+    }
 };
 
 class Cards extends Component{
@@ -37,7 +42,6 @@ class Cards extends Component{
 
     render(){
         const {classes} = this.props;
-
         return(
             <div className={classes.root} >
                 <Grid container spacing={24} alignItems="flex-start"
@@ -48,9 +52,7 @@ class Cards extends Component{
                             <div>
                                 <Card className={classes.card}>
                                     <CardContent>
-                                        <Typography className={classes.title} color="textSecondary">
-                                            {todo.priority}
-                                        </Typography>
+                                        <Chip label={todo.priority} className={classes.chip}/>
                                         <Typography variant="headline" component="h2">
                                             {todo.title}
                                         </Typography>
@@ -62,7 +64,7 @@ class Cards extends Component{
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button size="small">Learn More</Button>
+                                        <Button size="small">START</Button>
                                     </CardActions>
                                 </Card>
                             </div>
