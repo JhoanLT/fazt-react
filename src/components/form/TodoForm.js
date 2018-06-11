@@ -30,28 +30,37 @@ const styles = theme => ({
 
 class TodoForm extends Component{
 
+    constructor(props){
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
     state = {
         title: '',
         responsible: '',
         description: '',
-        priority: 'low',
+        priority: '',
 
     };
 
-    handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+    handleChange(e){
+        const {value, name} = e.target;
+        this.setState({
+           [name]: value
+        });
     };
 
-    handleSubmit(){
-        const {title, responsible, description, priority} = this.state;
-        console.log(title, responsible, description, priority);
+    handleSubmit(e){
+        e.preventDefault();
+        this.props.onAddTodo(this.state);
     }
 
     render(){
         const { classes } = this.props;
         const {title, responsible, description, priority} = this.state;
         return(
-                <form className={classes.container} noValidate autoComplete="off">
+                <form className={classes.container} noValidate autoComplete="off" onSubmit={this.handleSubmit}>
                     <TextField
                         id="title-input"
                         label="Title"
@@ -59,7 +68,8 @@ class TodoForm extends Component{
                         type="text"
                         autoComplete="current-title"
                         margin="normal"
-                        name={title}
+                        name="title"
+                        onChange={this.handleChange}
                     />
                     <TextField
                         id="responsible-input"
@@ -68,7 +78,8 @@ class TodoForm extends Component{
                         type="text"
                         autoComplete="current-responsible"
                         margin="normal"
-                        name={responsible}
+                        name="responsible"
+                        onChange={this.handleChange}
                     />
                     <TextField
                         id="description-input"
@@ -77,7 +88,8 @@ class TodoForm extends Component{
                         type="text"
                         autoComplete="current-description"
                         margin="normal"
-                        name={description}
+                        name="description"
+                        onChange={this.handleChange}
                     />
                     <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="select-priority">Priority</InputLabel>
@@ -92,9 +104,9 @@ class TodoForm extends Component{
                             <MenuItem value="">
                                 <em>None</em>
                             </MenuItem>
-                            <MenuItem value={10}>High</MenuItem>
-                            <MenuItem value={20}>Medium</MenuItem>
-                            <MenuItem value={30}>Low</MenuItem>
+                            <MenuItem value="high">High</MenuItem>
+                            <MenuItem value="medium">Medium</MenuItem>
+                            <MenuItem value="low">Low</MenuItem>
                         </Select>
                     </FormControl>
                     <Button variant="contained"

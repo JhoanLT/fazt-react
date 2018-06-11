@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {todos} from '../../todos';
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/core/styles';
 import {CardActions,
@@ -33,11 +32,12 @@ const styles = {
 
 class Cards extends Component{
 
-    constructor(){
-        super();
-        this.state = {
-            todos
-        };
+    constructor(props){
+        super(props);
+    }
+
+    handleRemove(index){
+        this.props.removeTask(index);
     }
 
     render(){
@@ -47,9 +47,9 @@ class Cards extends Component{
                 <Grid container spacing={24} alignItems="flex-start"
                       direction="row"
                       justify="flex-end">
-                    {this.state.todos.map((todo, i) => {
+                    {this.props.data.map((todo, i) => {
                         return (
-                            <div>
+                            <div key={i}>
                                 <Card className={classes.card}>
                                     <CardContent>
                                         <Chip label={todo.priority} className={classes.chip}/>
@@ -64,7 +64,12 @@ class Cards extends Component{
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button size="small">START</Button>
+                                        <Button variant="outlined" color="primary" size="small">START</Button>
+                                        <Button
+                                            variant="outlined"
+                                            color="secondary"
+                                            size="small"
+                                            onClick={this.handleRemove.bind(this, i)}>DELETE</Button>
                                     </CardActions>
                                 </Card>
                             </div>
